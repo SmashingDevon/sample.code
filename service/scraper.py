@@ -41,9 +41,4 @@ def create_stock_json_record():
         data = {'previous_close': pc, 'volume': vol}
         print(data)
 
-    #Writing to csv file while removing special characters from the text on the page.
-    #with open('sample.csv', 'w', newline='') as csvfile:
-    #    filewriter = csv.writer(csvfile, delimiter=',',
-    #                                    quotechar='', quoting=csv.QUOTE_MINIMAL)
-    #    filewriter.writerow(['PreviousClose', pc, 'Volume', vol])
     return json.dumps(data)
