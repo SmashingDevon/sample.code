@@ -1,0 +1,26 @@
+---
+
+- name: restart ntp
+  service: name=ntp state=restarted
+  register: output
+
+- debug: var=output
+  when: playbook_debug
+
+#- assert:
+#    that:
+#      - output.stdout != ""
+
+- name: configure firewall
+  ufw: 
+    state: enabled
+    rule: allow
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+  with_items:
+    - {port: 123, proto: udp}
+  register: output
+
+- debug: var=output
+  when: playbook_debug
+

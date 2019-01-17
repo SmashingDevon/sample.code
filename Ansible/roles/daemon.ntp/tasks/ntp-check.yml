@@ -1,0 +1,11 @@
+---
+
+- name: Ensure NTP is stopped and disabled as configured.
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: ntp
+  when: ansible_os_family == "Debian"
+
+- debug: var=output
+  when: playbook_debug

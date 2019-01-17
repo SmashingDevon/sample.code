@@ -1,0 +1,16 @@
+---
+
+ntp_client_conf_file: /etc/ntp.conf
+ntp_client_drift_file: /var/lib/ntp/ntp.drift
+ntp_client_stats_dir: /var/log/ntpstats/
+
+ntpd_servers:
+  - 0.ubuntu.pool.ntp.org
+  - 1.ubuntu.pool.ntp.org
+  - 2.ubuntu.pool.ntp.org
+  - 3.ubuntu.pool.ntp.org
+
+ntpd_fallback_server:
+  - pool.ubuntu.com
+
+

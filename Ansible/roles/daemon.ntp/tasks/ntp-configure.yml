@@ -1,0 +1,12 @@
+---
+
+- name: configure ntp
+  template: src=ntp_client_conf.j2 dest="{{ ntp_client_conf_file }}" owner=root group=root mode=0644
+  notify: "{{ item }}"
+  with_items:
+    - configure firewall
+  when: ansible_os_family == "Debian"
+  register: output
+
+- debug: var=output
+  when: playbook_debug

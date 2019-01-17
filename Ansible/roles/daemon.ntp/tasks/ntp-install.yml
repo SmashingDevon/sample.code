@@ -1,0 +1,12 @@
+---
+
+- name: install ntp
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: ntp
+  when: ansible_os_family == "Debian"
+  register: output
+
+- debug: var=output
+  when: playbook_debug

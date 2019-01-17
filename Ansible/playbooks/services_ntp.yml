@@ -1,0 +1,15 @@
+---
+
+  ## Legend
+  #  + = complete
+  #  ? = pending
+  #  - = exclude/shelve
+  #  ! = manual
+  #  i = incomplete
+
+- hosts: localhost
+  remote_user: root
+
+  roles:
+
+    - daemon.ntp

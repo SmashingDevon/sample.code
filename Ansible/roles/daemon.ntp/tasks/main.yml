@@ -1,0 +1,34 @@
+---
+  #
+  ## Legend
+  #  + = complete
+  #  ? = pending
+  #  - = exclude/shelve
+  #  ! = manual
+  #  i = incomplete
+
+  ## + set default ntp parameters
+  - include: ntp-check.yml
+    tags:
+      - check
+      - all
+
+  - include: ntp-stop.yml
+    tags:
+     - stop
+     - all
+
+  - include: ntp-install.yml
+    tags:
+     - install
+     - all
+
+  - include: ntp-configure.yml
+    tags:
+     - configure
+     - all
+
+  - include: ntp-start.yml
+    tags:
+      - start
+      - all

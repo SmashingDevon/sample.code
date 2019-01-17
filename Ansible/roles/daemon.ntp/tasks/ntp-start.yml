@@ -1,0 +1,7 @@
+---
+
+- name: Starting NTP post configuration
+  shell: systemctl start ntp
+
+- debug: var=output
+  when: playbook_debug

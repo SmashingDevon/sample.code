@@ -1,0 +1,6 @@
+---
+- name: stopping NTP simplistically using shell
+  shell: systemctl stop ntp
+
+- debug: var=output
+  when: playbook_debug
