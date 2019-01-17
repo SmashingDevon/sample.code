@@ -117,111 +117,11 @@ def init(ctx):
            except Exception:
               print ("Error creating file {0}".format(pattern))
 
-
-#@task
-#def clean_images(ctx):
-#    '''Cleanup docker image artifacts'''
-#    header(clean_images.__doc__)
-#    with ctx.cd(ROOT):
-#        ctx.run('docker images --all -q | xargs docker rmi -f ', pty=True)
-
-
-#@task
-#def clean_containers(ctx):
-#    '''Cleanup docker container artifacts'''
-#    header(clean_containers.__doc__)
-#    with ctx.cd(ROOT):
-#        ctx.run('docker container prune -f ', pty=True)
-
-
-#@task
-#def clean_project(ctx):
-#    '''Cleanup build artifacts'''
-#    header(clean_project.__doc__)
-#    with ctx.cd(ROOT):
-#        for pattern in CLEAN_PATTERNS:
-#            info('Removing {0}', pattern)
-#            ctx.run('rm -rf {0}'.format(pattern))
-
-
-#@task(clean_project, clean_containers, clean_images)
-#def clean(ctx):
-#    '''Cleanup all build artifacts'''
-#    header(clean.__doc__)
-#    pass
-
-
 @task
 def deps(ctx):
     '''Install or update development dependencies'''
     header(deps.__doc__)
     ctx.run('/usr/local/bin/pip3 install -r requirements.txt', pty=True)
-
-
-#@task
-#def run_neo4j(ctx):
-#    '''Run Neo4j'''
-#    header(run_neo4j.__doc__)
-#    with ctx.cd(ROOT):
-#        try:
-#           ctx.run('docker run -d -p 7473:7473 -p 7474:7474 -p 7687:7687 --name ' + DOCKER_IMAGE_LABEL_NEO4J + ' neo4j ', pty=True)
-#        except Exception:
-#          print ("Error starting Container: " + DOCKER_IMAGE_LABEL_NEO4J)
-#          try:
-#            ctx.run('docker ps | grep ' + DOCKER_IMAGE_LABEL_NEO4J + ' | awk \'{print $1}\' | xargs docker kill ', pty=True)
-#          except Exception:
-#            print ("Error stopping Container: " + DOCKER_IMAGE_LABEL_NEO4J)
-#          try:
-#            ctx.run('docker run -d -p 7473:7473 -p 7474:7474 -p 7687:7687 --name ' + DOCKER_IMAGE_LABEL_NEO4J + ' neo4j ', pty=True)
-#          except Exception:
-#            print ("Error starting Container: " + DOCKER_IMAGE_LABEL_NEO4J)
-
-
-#@task
-#def kill_neo4j(ctx):
-#    '''Kill Neo4j'''
-#    header(kill_neo4j.__doc__)
-#    try:
-#       ctx.run('docker ps | grep ' + DOCKER_IMAGE_LABEL_NEO4J + ' | awk \'{print $1}\' | xargs docker kill ', pty=True)
-#    except Exception:
-#       print ("Error stopping Container: " + DOCKER_IMAGE_LABEL_NEO4J)
-
-
-#@task
-#def run_couchbase(ctx):
-#    '''Run Couchbase'''
-#    header(run_couchbase.__doc__)
-#    with ctx.cd(ROOT):
-#        try:
-#           ctx.run('docker run -d -p 8091-8094:8091-8094 -p 11210:11210 --name ' + DOCKER_IMAGE_LABEL_COUCHBASE + ' couchbase ', pty=True)
-#        except Exception:
-#          print ("Error starting Container: " + DOCKER_IMAGE_LABEL_COUCHBASE)
-#          try:
-#            ctx.run('docker ps | grep ' + DOCKER_IMAGE_LABEL_COUCHBASE + ' | awk \'{print $1}\' | xargs docker kill ', pty=True)
-#          except Exception:
-#            print ("Error stopping Container: " + DOCKER_IMAGE_LABEL_COUCHBASE)
-#          try:
-#            ctx.run('docker run -d -p 8091-8094:8091-8094 -p 11210:11210 --name ' + DOCKER_IMAGE_LABEL_COUCHBASE + ' couchbase ', pty=True)
-#          except Exception:
-#            print ("Error starting Container: " + DOCKER_IMAGE_LABEL_COUCHBASE)
-
-
-#@task
-#def kill_couchbase(ctx):
-#    '''Kill Couchbase'''
-#    header(kill_couchbase.__doc__)
-#    try:
-#        ctx.run('docker ps | grep ' + DOCKER_IMAGE_LABEL_COUCHBASE + ' | awk \'{print $1}\' | xargs docker kill ', pty=True)
-#    except Exception:
-#        print ("Error stopping Container: " + DOCKER_IMAGE_LABEL_COUCHBASE)
-
-
-#@task(kill_neo4j,kill_couchbase)
-#def kill_all(ctx):
-#    '''Kill all Containers'''
-#    header(kill_all.__doc__)
-#    pass
-
 
 @task
 def test(ctx):
@@ -229,20 +129,11 @@ def test(ctx):
     header(test.__doc__)
     ctx.run('pytest test.py', pty=True)
 
-
 @task
 def test_verbose(ctx):
     '''Test Project'''
     header(test_verbose.__doc__)
     ctx.run('pytest test.py -s', pty=True)
-
-
-#@task
-#def wrangle_data_verbose(ctx):
-#    '''Wrangle Data'''
-#    header(wrangle_data_verbose.__doc__)
-#    ctx.run('pytest wrangle.py -s', pty=True)
-
 
 #@task(clean, deps, test, doc, qa, assets, dist, default=True)
 @task(test, default=True)
